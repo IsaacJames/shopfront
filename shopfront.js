@@ -82,4 +82,43 @@ function updateLineCost(e, item_id) {
     tl.innerHTML = t;
   }
 
-  // Also need to update sub_total, delivery_charge, vat, and total.
+  function check() {
+    let cc_number = document.getElementsByName("cc_number")[0].value;
+    let cc_name = document.getElementsByName("cc_name")[0].value;
+    let cc_code = document.getElementsByName("cc_code")[0].value;
+    let delivery_address = document.getElementsByName("delivery_address")[0].value;
+    let delivery_postcode = document.getElementsByName("delivery_postcode")[0].value;
+    let delivery_country = document.getElementsByName("delivery_country")[0].value;
+    let email = document.getElementsByName("email")[0].value;
+
+    let c = "<p>Credit Card Number: " + cc_number + "</p>\n" +
+            "<p>Name on Credit Card: " + cc_name + "</p>\n" +
+            "<p>Credit Card sercurity code: " + cc_code + "</p>\n" +
+            "<p>Delivery street address: " + delivery_address + "</p>\n" +
+            "<p>Delivery postcode: " + delivery_postcode + "</p>\n" +
+            "<p>Delivery country: " + delivery_country + "</p>\n" +
+            "<p>Email: " + email + "</p>\n";
+    let confirm = document.getElementById("confirm");
+    confirm.innerHTML = c;
+    confirm.style.display = "block";
+
+    let s = document.getElementById("stock");
+    s.style.display = "none";
+
+    c = '<p>Is this correct? \
+        &nbsp; <input class="yes" type="submit" value="Yes" onclick="no()" /> \
+        &nbsp; <input class="no" type="button" value="No" onclick="no()" /> \
+        </p>';
+   let info = document.getElementById("info");
+   info.innerHTML = c;
+   info.style.display = "block";
+  }
+
+  function no() {
+    let confirm = document.getElementById("confirm");
+    confirm.style.display = "none";
+    let info = document.getElementById("info");
+    info.style.display = "none";
+    let s = document.getElementById("stock");
+    s.style.display = "block";
+  }

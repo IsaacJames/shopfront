@@ -9,7 +9,7 @@
 
 <body>
 
-<script src="shopfront.js"></script>
+
 
 <h1>Items for Sale</h1>
 
@@ -17,6 +17,7 @@
 
 <form name="order" action="shopback.php" method="POST">
 
+<div id = "stock">
 <stock_list>
 
   <stock_item>
@@ -97,33 +98,42 @@
 </p>
 
 <p>Credit Card number:
-<input type="text" name="cc_number" pattern="[0-9]{16}" size="16" /></p>
+<input type="text" name="cc_number" pattern="[0-9]{16}" title="16 digits" size="16" required/></p>
 
 <p>Name on Credit Card (also the name for delivery):
-<input type="text" name="cc_name" size="80" /></p>
+<input type="text" name="cc_name" size="80" required/></p>
 
 <p>Credit Card security code:
-<input type="text" name="cc_code" pattern="[0-9]{3}" size="3" /></p>
+<input type="text" name="cc_code" pattern="[0-9]{3}" title="3 digits" size="3" required/></p>
 
 <p>Delivery street address:
-<input type="text" name="delivery_address" size="128" /></p>
+<input type="text" name="delivery_address" size="128" required/></p>
 
 <p>Delivery postcode:
-<input type="text" name="delivery_postcode" size="40" /></p>
+<input type="text" name="delivery_postcode" size="40" required/></p>
 
 <p>Delivery country:
-<input type="text" name="delivery_country" size="80" /></p>
+<input type="text" name="delivery_country" size="80" required/></p>
 
 <p>Email:
-<input type="email" name="email" /></p>
+<input type="email" name="email" required/></p>
 
 <hr />
 
-<input type="submit" value="Place Order" />
+<input type="button" value="Place Order" onclick="check()"/>
+
+</div>
+
+<div id = "confirm"></div>
+
+<div id = "info"></div>
 
 </form>
+
+<script src="shopfront.js"></script>
 
 <hr />
 
 </body>
+
 </html>

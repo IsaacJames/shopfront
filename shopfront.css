@@ -65,3 +65,11 @@ line_cost {
   background-color: blue;
   color: white;
 }
+
+.yes {
+  background-color: lightgreen;
+}
+
+.no {
+  background-color: lightcoral;
+}
