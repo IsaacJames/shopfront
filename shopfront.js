@@ -52,34 +52,34 @@ function updateLineCost(e, item_id) {
     }
     t = t.toFixed(2); // 2 decimal places always.
     let s = document.getElementById("sub_total");
-    s.innerHTML = t;
+    s.value = t;
   }
 
   function updateDeliveryCharge() {
     let s = document.getElementById("sub_total");
-    let c = s.innerHTML * 0.1;
+    let c = s.value * 0.1;
     c = c.toFixed(2);
     let d = document.getElementById("delivery_charge");
-    d.innerHTML = c;
+    d.value = c;
   }
 
   function updateVAT() {
     let s = document.getElementById("sub_total");
     let d = document.getElementById("delivery_charge");
-    let v = (Number(s.innerHTML) + Number(d.innerHTML)) * 0.2;
+    let v = (Number(s.value) + Number(d.value)) * 0.2;
     v = v.toFixed(2);
     let vt = document.getElementById("vat");
-    vt.innerHTML = v;
+    vt.value = v;
   }
 
   function updateTotal() {
     let s = document.getElementById("sub_total");
     let d = document.getElementById("delivery_charge");
     let v = document.getElementById("vat");
-    let t = Number(s.innerHTML) + Number(d.innerHTML) + Number(v.innerHTML);
+    let t = Number(s.value) + Number(d.value) + Number(v.value);
     t = t.toFixed(2);
     let tl = document.getElementById("total");
-    tl.innerHTML = t;
+    tl.value = t;
   }
 
   function check() {

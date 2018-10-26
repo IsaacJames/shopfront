@@ -90,13 +90,17 @@ foreach(array_keys($stock_list) as $id) {
 
 <br />
 
-<p>Sub-total: <span id="sub_total"></span></p>
+<p>Sub-total:
+  <input id="sub_total" type="number" name="sub_total" value=0 readonly/></p>
 
-<p>Delivery charge: <span id="delivery_charge"></span></p>
+<p>Delivery charge:
+  <input id="delivery_charge" type="number" name="delivery_charge" value=0 readonly/></p>
 
-<p>VAT: <span id="vat"></span></p>
+<p>VAT:
+  <input id="vat" type="number" name="vat" value=0 readonly/></p>
 
-<p>Total: <span id="total"></span></p>
+<p>Total:
+  <input id="total" type="number" name="total" value=0 readonly/></p>
 
 <hr />
 
@@ -109,29 +113,29 @@ foreach(array_keys($stock_list) as $id) {
 </p>
 
 <p>Credit Card number:
-<input type="text" name="cc_number" pattern="[0-9]{16}" size="16" required/></p>
+  <input type="text" name="cc_number" pattern="[0-9]{16}" size="16" required/></p>
 
 <p>Name on Credit Card (also the name for delivery):
-<input type="text" name="cc_name" size="80" required/></p>
+  <input type="text" name="cc_name" size="80" required/></p>
 
 <p>Credit Card security code:
-<input type="text" name="cc_code" pattern="[0-9]{3}" size="3" required/></p>
+  <input type="text" name="cc_code" pattern="[0-9]{3}" size="3" required/></p>
 
 <p>Delivery street address:
-<input type="text" name="delivery_address" size="128" required/></p>
+  <input type="text" name="delivery_address" size="128" required/></p>
 
 <p>Delivery postcode:
-<input type="text" name="delivery_postcode" size="40" required/></p>
+  <input type="text" name="delivery_postcode" size="40" required/></p>
 
 <p>Delivery country:
-<input type="text" name="delivery_country" size="80" required/></p>
+  <input type="text" name="delivery_country" size="80" required/></p>
 
 <p>Email:
-<input type="email" name="email" required/></p>
+  <input type="email" name="email" required/></p>
 
 <hr />
 
-<input type="button" value="Place Order" onclick="check()" />
+<input type="button" value="Place Order" onclick="check()"/>
 
 </div>
 
