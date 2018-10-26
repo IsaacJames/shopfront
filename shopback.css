@@ -2,6 +2,14 @@
   font-family: Arial;
 }
 
+.yes {
+  background-color: lightgreen;
+}
+
+.no {
+  background-color: lightcoral;
+}
+
 stock_list {
   padding: 0;
   spacing: 0.1rem;
@@ -15,28 +23,7 @@ stock_item {
   display: table-row;
 }
 
-item_photo {
-  text-align: center;
-  vertical-align: middle;
-  border-spacing: 0.4rem;
-  padding: 0.5rem;
-  display: table-cell;
-}
-
 item_name {
-  vertical-align: middle;
-  border-spacing: 0.4rem;
-  padding: 0.5rem;
-  display: table-cell;
-}
-
-item_name * {
-  border: 0;
-  font-size: 16px;
-  text-align: right;
-}
-
-item_info {
   vertical-align: middle;
   border-spacing: 0.4rem;
   padding: 0.5rem;
@@ -59,12 +46,6 @@ item_price {
   display: table-cell;
 }
 
-item_price * {
-  border: 0;
-  font-size: 16px;
-  text-align: right;
-}
-
 line_cost {
   border-spacing: 0.4rem;
   text-align: right;
@@ -73,21 +54,7 @@ line_cost {
   display: table-cell;
 }
 
-line_cost * {
-  border: 0;
-  font-size: 16px;
-  text-align: right;
-}
-
 .heading {
   background-color: blue;
   color: white;
-}
-
-.yes {
-  background-color: lightgreen;
-}
-
-.no {
-  background-color: lightcoral;
 }

@@ -76,11 +76,11 @@ foreach(array_keys($stock_list) as $id) {
   $item = $stock_list[$id];
   $p = photoCheck($item["photo"]);
   echo "    <item_photo>{$p}</item_photo>\n";
-  echo "    <item_name>{$item["name"]}</item_name>\n";
+  echo "    <item_name><input name=\"{$id}[name]\" type=\"text\" value=\"{$item["name"]}\" size=\"3\" readonly /></item_name>\n";
   echo "    <item_info>{$item["info"]}</item_info>\n";
-  echo "    <item_price><input name=\"{$id}_price\" type=\"number\" value=\"{$item["price"]}\" size=\"3\" readonly /></item_price>\n";
-  echo "    <item_quantity><input name=\"{$id}_quantity\" type=\"text\" value=\"0\" pattern=\"[0-9]+\" size=\"3\" onchange=\"updateLineCost(this, '{$id}');\" /></item_quantity>\n";
-  echo "    <line_cost><input name=\"{$id}_cost\" type=\"number\" value=\"0\" size=\"5\" readonly /></line_cost>\n";
+  echo "    <item_price><input name=\"{$id}[price]\" type=\"number\" value=\"{$item["price"]}\" size=\"3\" readonly /></item_price>\n";
+  echo "    <item_quantity><input name=\"{$id}[quantity]\" type=\"text\" value=\"0\" pattern=\"[0-9]+\" size=\"3\" onchange=\"updateLineCost(this, '{$id}');\" /></item_quantity>\n";
+  echo "    <line_cost><input name=\"{$id}[cost]\" type=\"number\" value=\"0\" size=\"5\" readonly /></line_cost>\n";
   echo "  </stock_item>\n\n";
 }
 
@@ -91,7 +91,7 @@ foreach(array_keys($stock_list) as $id) {
 <br />
 
 <p>Sub-total:
-  <input id="sub_total" type="number" name="sub_total" value="0" readonly/></p>
+  <input id="sub_total" type="number" name="Sub Total" value="0" readonly/></p>
 
 <p>Delivery charge:
   <input id="delivery_charge" type="number" name="delivery_charge" value="0" readonly/></p>
