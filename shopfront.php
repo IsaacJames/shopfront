@@ -79,7 +79,7 @@ foreach(array_keys($stock_list) as $id) {
   echo "    <item_name><input name=\"{$id}[name]\" type=\"text\" value=\"{$item["name"]}\" size=\"3\" readonly /></item_name>\n";
   echo "    <item_info>{$item["info"]}</item_info>\n";
   echo "    <item_price><input name=\"{$id}[price]\" type=\"number\" value=\"{$item["price"]}\" size=\"3\" readonly /></item_price>\n";
-  echo "    <item_quantity><input name=\"{$id}[quantity]\" type=\"text\" value=\"0\" pattern=\"[0-9]+\" size=\"3\" onchange=\"updateLineCost(this, '{$id}');\" /></item_quantity>\n";
+  echo "    <item_quantity><input name=\"{$id}[quantity]\" type=\"text\" value=\"0\" pattern=\"[0-9]+\" size=\"3\" step=\"1\" onchange=\"updateLineCost(this, '{$id}');\" /></item_quantity>\n";
   echo "    <line_cost><input name=\"{$id}[cost]\" type=\"number\" value=\"0\" size=\"5\" readonly /></line_cost>\n";
   echo "  </stock_item>\n\n";
 }
@@ -91,7 +91,7 @@ foreach(array_keys($stock_list) as $id) {
 <br />
 
 <p>Sub-total:
-  <input id="sub_total" type="number" name="Sub Total" value="0" readonly/></p>
+  <input id="sub_total" type="number" name="sub_total" value="0" readonly/></p>
 
 <p>Delivery charge:
   <input id="delivery_charge" type="number" name="delivery_charge" value="0" readonly/></p>
@@ -113,13 +113,13 @@ foreach(array_keys($stock_list) as $id) {
 </p>
 
 <p>Credit Card number:
-  <input type="text" name="cc_number" pattern="[0-9]{16}" size="16" required/></p>
+  <input type="text" name="cc_number" pattern="[0-9]{16}" size="16" step="1" required/></p>
 
 <p>Name on Credit Card (also the name for delivery):
   <input type="text" name="cc_name" size="80" required/></p>
 
 <p>Credit Card security code:
-  <input type="text" name="cc_code" pattern="[0-9]{3}" size="3" required/></p>
+  <input type="text" name="cc_code" pattern="[0-9]{3}" size="3" step="1" required/></p>
 
 <p>Delivery street address:
   <input type="text" name="delivery_address" size="128" required/></p>
@@ -135,7 +135,7 @@ foreach(array_keys($stock_list) as $id) {
 
 <hr />
 
-<input type="button" value="Place Order" onclick="check()"/>
+<input type="button" value="Place Order" onclick="confirm()"/>
 
 </div>
 

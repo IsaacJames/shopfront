@@ -33,7 +33,6 @@ function updateLineCost(e, item_id) {
   let q = e.value;
   let c = p * q; // implicit type conversion
   c = c.toFixed(2); // 2 decimal places always.
-
   setStockItemValue(item_id, "line_cost", c);
   updateSubTotal();
   updateDeliveryCharge();
@@ -83,7 +82,7 @@ function updateLineCost(e, item_id) {
     tl.value = t;
   }
 
-  function check() {
+  function confirm() {
     let cc_number = document.getElementsByName("cc_number")[0].value;
     let cc_name = document.getElementsByName("cc_name")[0].value;
     let cc_code = document.getElementsByName("cc_code")[0].value;
@@ -107,23 +106,19 @@ function updateLineCost(e, item_id) {
     s.style.display = "none";
 
     c = '<p>Is this correct? \
-        &nbsp; <input class="yes" type="submit" value="Yes" onclick="yes()" /> \
-        &nbsp; <input class="no" type="button" value="No" onclick="no()" /> \
+        &nbsp; <input class="yes" type="submit" value="Yes" onclick="displayForm()" /> \
+        &nbsp; <input class="no" type="button" value="No" onclick="displayForm()" /> \
         </p>';
    let info = document.getElementById("info");
    info.innerHTML = c;
    info.style.display = "block";
   }
 
-  function no() {
+  function displayForm() {
     let confirm = document.getElementById("confirm");
     confirm.style.display = "none";
     let info = document.getElementById("info");
     info.style.display = "none";
     let s = document.getElementById("stock");
     s.style.display = "block";
-  }
-
-  function yes() {
-    no();
   }

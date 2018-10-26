@@ -1,5 +1,6 @@
-* {
+ * {
   font-family: Arial;
+  font-size: 16px;
 }
 
 stock_list {
@@ -32,7 +33,6 @@ item_name {
 
 item_name * {
   border: 0;
-  font-size: 16px;
   text-align: right;
 }
 
@@ -61,7 +61,6 @@ item_price {
 
 item_price * {
   border: 0;
-  font-size: 16px;
   text-align: right;
 }
 
@@ -75,8 +74,11 @@ line_cost {
 
 line_cost * {
   border: 0;
-  font-size: 16px;
   text-align: right;
+}
+
+input[id] {
+  border: 0;
 }
 
 .heading {
