@@ -1,3 +1,41 @@
+<?php
+clearstatcache(); // http://php.net/manual/en/function.clearstatcache.php
+
+define("STOCK_FILE_NAME", "stock.txt"); // Local file - insecure!
+define("STOCK_FILE_LINE_SIZE", 256); // 256 line length should enough.
+
+define("PHOTO_DIR", "piks/large/"); // large photo, local files, insecure!
+define("THUMBNAIL_DIR", "piks/thumbnail/"); // thumbnail, local files, insecure!
+
+function photoCheck($photo) { // Do we have photos?
+  $result = "";
+  $p = PHOTO_DIR . $photo;
+  $t = THUMBNAIL_DIR . $photo;
+  if (!file_exists($p) || !file_exists($t)) { $result = "(No photo)"; }
+  else { $result = "<a href=\"{$p}\"><img src=\"{$t}\" border=\"0\" /></a>"; }
+  return $result;
+}
+
+
+if (!file_exists(STOCK_FILE_NAME)) {
+  die("File not found for read - " . STOCK_FILE_NAME . "\n"); // Script exits.
+}
+
+$f = fopen(STOCK_FILE_NAME, "r");
+$stock_list = null;
+print_r($stock_list);
+while (($row = fgetcsv($f, STOCK_FILE_LINE_SIZE)) != false) {
+  $stock_item = array(
+    "id" => $row[0], /// needs to be unique!
+    "photo" => $row[0] . ".jpg",
+    "name" => $row[1],
+    "info" => $row[2],
+    "price" => $row[3]);
+  $stock_list[$row[0]] = $stock_item; // Add stock.
+}
+fclose($f);
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -9,7 +47,7 @@
 
 <body>
 
-
+<script src="shopfront.js"></script>
 
 <h1>Items for Sale</h1>
 
@@ -18,6 +56,7 @@
 <form name="order" action="shopback.php" method="POST">
 
 <div id = "stock">
+
 <stock_list>
 
   <stock_item>
@@ -29,51 +68,23 @@
     <line_cost class="heading">Cost</line_cost>
   </stock_item>
 
-  <stock_item id="crawdad">
-    <item_photo><a href="piks/large/crawdad.jpg"><img src="piks/thumbnail/crawdad.jpg" border="0" /></a></item_photo>
-    <item_name>Crawdad</item_name>
-    <item_info>It's actually a 'crayfish'.</item_info>
-    <item_price>4.50</item_price>
-    <item_quantity><input name="crawdad" type="text" value="0" pattern="[0-9]+" size="3" onchange="updateLineCost(this, 'crawdad');" /></item_quantity>
-    <line_cost>0.00</line_cost>
-  </stock_item>
+<?php
 
-  <stock_item id="gorilla">
-    <item_photo><a href="piks/large/gorilla.jpg"><img src="piks/thumbnail/gorilla.jpg" border="0" /></a></item_photo>
-    <item_name>Gorilla</item_name>
-    <item_info>Gives a friendly wave.</item_info>
-    <item_price>8.50</item_price>
-    <item_quantity><input name="gorilla" type="text" value="0" pattern="[0-9]+" size="3" onchange="updateLineCost(this, 'gorilla');" /></item_quantity>
-    <line_cost>0.00</line_cost>
-  </stock_item>
+foreach(array_keys($stock_list) as $id) {
+  // spacing in HTML output for readability only
+  echo "  <stock_item id=\"{$id}\">\n";
+  $item = $stock_list[$id];
+  $p = photoCheck($item["photo"]);
+  echo "    <item_photo>{$p}</item_photo>\n";
+  echo "    <item_name>{$item["name"]}</item_name>\n";
+  echo "    <item_info>{$item["info"]}</item_info>\n";
+  echo "    <item_price>{$item["price"]}</item_price>\n";
+  echo "    <item_quantity><input name=\"{$id}\" type=\"text\" value=\"0\" pattern=\"[0-9]+\" size=\"3\" onchange=\"updateLineCost(this, '{$id}');\" /></item_quantity>\n";
+  echo "    <line_cost>0.00</line_cost>\n";
+  echo "  </stock_item>\n\n";
+}
 
-  <stock_item id="ninja">
-    <item_photo><a href="piks/large/ninja.jpg"><img src="piks/thumbnail/ninja.jpg" border="0" /></a></item_photo>
-    <item_name>Ninja</item_name>
-    <item_info>Hero in a half-shell.</item_info>
-    <item_price>12.50</item_price>
-    <item_quantity><input name="ninja" type="text" value="0" pattern="[0-9]+" size="3" onchange="updateLineCost(this, 'ninja');" /></item_quantity>
-    <line_cost>0.00</line_cost>
-  </stock_item>
-
-  <stock_item id="psion">
-    <item_photo><a href="piks/large/psion.jpg"><img src="piks/thumbnail/psion.jpg" border="0" /></a></item_photo>
-    <item_name>Psion 5</item_name>
-    <item_info>A computing classic - rare.</item_info>
-    <item_price>125.00</item_price>
-    <item_quantity><input name="psion" type="text" value="0" pattern="[0-9]+" size="3" onchange="updateLineCost(this, 'psion');" /></item_quantity>
-    <line_cost>0.00</line_cost>
-  </stock_item>
-
-  <stock_item id="totem">
-    <item_photo><a href="piks/large/totem.jpg"><img src="piks/thumbnail/totem.jpg" border="0" /></a></item_photo>
-    <item_name>Totem</item_name>
-    <item_info>Mysterious and wooden (untold supernatural powers).</item_info>
-    <item_price>150.00</item_price>
-    <item_quantity><input name="totem" type="text" value="0" pattern="[0-9]+" size="3" onchange="updateLineCost(this, 'totem');" /></item_quantity>
-    <line_cost>0.00</line_cost>
-  </stock_item>
-
+?>
 
 </stock_list>
 
@@ -98,13 +109,13 @@
 </p>
 
 <p>Credit Card number:
-<input type="text" name="cc_number" pattern="[0-9]{16}" title="16 digits" size="16" required/></p>
+<input type="text" name="cc_number" pattern="[0-9]{16}" size="16" required/></p>
 
 <p>Name on Credit Card (also the name for delivery):
 <input type="text" name="cc_name" size="80" required/></p>
 
 <p>Credit Card security code:
-<input type="text" name="cc_code" pattern="[0-9]{3}" title="3 digits" size="3" required/></p>
+<input type="text" name="cc_code" pattern="[0-9]{3}" size="3" required/></p>
 
 <p>Delivery street address:
 <input type="text" name="delivery_address" size="128" required/></p>
@@ -120,7 +131,7 @@
 
 <hr />
 
-<input type="button" value="Place Order" onclick="check()"/>
+<input type="button" value="Place Order" onclick="check()" />
 
 </div>
 
@@ -130,10 +141,7 @@
 
 </form>
 
-<script src="shopfront.js"></script>
-
 <hr />
 
 </body>
-
 </html>
