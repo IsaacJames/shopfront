@@ -9,7 +9,7 @@
 function getStockItemValue(item_id, element) {
   let i = document.getElementById(item_id);
   let e = i.getElementsByTagName(element)[0];  // assume only 1!
-  let v = e.innerHTML;
+  let v = e.firstChild.value;
   return v;
 }
 
@@ -21,7 +21,7 @@ function getStockItemValue(item_id, element) {
 function setStockItemValue(item_id, element, value) {
   let i = document.getElementById(item_id);
   let e = i.getElementsByTagName(element)[0];  // assume only 1!
-  e.innerHTML = value;
+  e.firstChild.value = value;
 }
 
 /*
@@ -33,6 +33,7 @@ function updateLineCost(e, item_id) {
   let q = e.value;
   let c = p * q; // implicit type conversion
   c = c.toFixed(2); // 2 decimal places always.
+
   setStockItemValue(item_id, "line_cost", c);
   updateSubTotal();
   updateDeliveryCharge();
@@ -48,7 +49,7 @@ function updateLineCost(e, item_id) {
     let t = 0;
     let lc = document.getElementsByTagName("line_cost");
     for (i = 1; i < lc.length; i++) {
-      t += Number(lc[i].innerHTML);
+      t += Number(lc[i].firstChild.value);
     }
     t = t.toFixed(2); // 2 decimal places always.
     let s = document.getElementById("sub_total");
@@ -106,7 +107,7 @@ function updateLineCost(e, item_id) {
     s.style.display = "none";
 
     c = '<p>Is this correct? \
-        &nbsp; <input class="yes" type="submit" value="Yes" onclick="no()" /> \
+        &nbsp; <input class="yes" type="submit" value="Yes" onclick="yes()" /> \
         &nbsp; <input class="no" type="button" value="No" onclick="no()" /> \
         </p>';
    let info = document.getElementById("info");
@@ -121,4 +122,8 @@ function updateLineCost(e, item_id) {
     info.style.display = "none";
     let s = document.getElementById("stock");
     s.style.display = "block";
+  }
+
+  function yes() {
+    no();
   }

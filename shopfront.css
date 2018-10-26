@@ -53,12 +53,24 @@ item_price {
   display: table-cell;
 }
 
+item_price * {
+  border: 0;
+  font-size: 16px;
+  text-align: right;
+}
+
 line_cost {
   border-spacing: 0.4rem;
   text-align: right;
   vertical-align: middle;
   padding: 0.5rem;
   display: table-cell;
+}
+
+line_cost * {
+  border: 0;
+  font-size: 16px;
+  text-align: right;
 }
 
 .heading {
