@@ -2,14 +2,6 @@
   font-family: Arial;
 }
 
-.yes {
-  background-color: lightgreen;
-}
-
-.no {
-  background-color: lightcoral;
-}
-
 stock_list {
   padding: 0;
   spacing: 0.1rem;

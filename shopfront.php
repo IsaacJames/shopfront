@@ -76,7 +76,7 @@ foreach(array_keys($stock_list) as $id) {
   $item = $stock_list[$id];
   $p = photoCheck($item["photo"]);
   echo "    <item_photo>{$p}</item_photo>\n";
-  echo "    <item_name><input name=\"{$id}[name]\" type=\"text\" value=\"{$item["name"]}\" size=\"3\" readonly /></item_name>\n";
+  echo "    <item_name><input name=\"{$id}[name]\" type=\"text\" value=\"{$item["name"]}\" readonly /></item_name>\n";
   echo "    <item_info>{$item["info"]}</item_info>\n";
   echo "    <item_price><input name=\"{$id}[price]\" type=\"number\" value=\"{$item["price"]}\" size=\"3\" readonly /></item_price>\n";
   echo "    <item_quantity><input name=\"{$id}[quantity]\" type=\"text\" value=\"0\" pattern=\"[0-9]+\" size=\"3\" step=\"1\" onchange=\"updateLineCost(this, '{$id}');\" /></item_quantity>\n";
