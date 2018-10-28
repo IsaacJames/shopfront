@@ -1,5 +1,8 @@
  * {
   font-family: Arial;
+ }
+
+form * {
   font-size: 16px;
 }
 
@@ -33,7 +36,7 @@ item_name {
 
 item_name * {
   border: 0;
-  text-align: right;
+  text-align: left;
 }
 
 item_info {
@@ -52,7 +55,6 @@ item_quantity {
 }
 
 item_price {
-  text-align: right;
   vertical-align: middle;
   border-spacing: 0.4rem;
   padding: 0.5rem;
@@ -65,8 +67,8 @@ item_price * {
 }
 
 line_cost {
+  text-align: center;
   border-spacing: 0.4rem;
-  text-align: right;
   vertical-align: middle;
   padding: 0.5rem;
   display: table-cell;

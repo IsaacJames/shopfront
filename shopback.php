@@ -12,25 +12,12 @@
 <h1>Receipt</h1>
 
 <p>
+
 <?php
+
 // http://php.net/manual/en/function.htmlspecialchars.php
 function getFormInfo($k) {
   return isset($_POST[$k]) ? htmlspecialchars($_POST[$k]) : null;
-}
-
-// Check that all personal details and payment details are complete
-function isDetailsComplete() {
-  if (!($cc_type = getFormInfo("cc_type")) ||
-    !($cc_number = getFormInfo("cc_number")) ||
-    !($cc_name = getFormInfo("cc_name")) ||
-    !($cc_code = getFormInfo("cc_code")) ||
-    !($delivery_address = getFormInfo("delivery_address")) ||
-    !($delivery_postcode = getFormInfo("delivery_postcode")) ||
-    !($email = getFormInfo("email"))
-    ) {
-    return false;
-  }
-  return true;
 }
 
 // Check that card number is 16 digits, an integer and has correct first number for card type
@@ -65,6 +52,7 @@ function isValidQuantities() {
   $empty_order = true;
   foreach (array_keys($_POST) as $a) {
     $item = $_POST[$a];
+
     if (is_array($item)) {
       if (!ctype_digit($item["quantity"])) {
         return false;
@@ -98,35 +86,16 @@ function isValidOrder() {
       echo "<p>Invalid order quantitiy.</p>";
     }
   else {
-    echo isValidCardNumber($cc_type, $cc_number);
     return true;
   }
 }
 
-/*
-function isValidOrder() {
-  if (!isDetailsComplete()) {
-    echo "<p>Some essential information is missing.</p>";
-    return false;
-  }
-  if (!isValidCardNumber() || !isValidCardCode()) {
-    echo "<p>Card could not be processed.</p>";
-    return false;
-  }
-  if (!isValidEmail()) {
-    echo "<p>Email is invalid</p>";
-    return false;
-  }
-  if (!isValidQuantities()) {
-    echo "<p>Ivalid order quantitiy.</p>";
-    return false;
-  }
-}*/
-
 if (isValidOrder()) {
-  echo "Date of order: ", date('l jS \of F Y h:i:s A'), "<br />\n";
-  echo "Transaction id: ", hash("md5", date('l jS \of F Y h:i:s A')), "<hr />\n";
+  echo "<p>Date of order: ", date('l jS \of F Y h:i:s A'), "</p>\n";
+  echo "<p>Transaction id: ", hash("md5", date('l jS \of F Y h:i:s A')), "</p\n>";
+  echo "<hr />\n";
 
+  // Print stock list headers
   echo "<stock_list>\n";
   echo "  <stock_item>\n";
   echo "    <item_name class=\"heading\">Name</item_name>\n";
@@ -146,6 +115,17 @@ if (isValidOrder()) {
       echo "  </stock_item>\n\n";
     }
   }
+  echo "<hr />\n";
+  echo "<p>Sub Total: {$_POST["sub_total"]}</p>";
+  echo "<p>Delivery charge: {$_POST["delivery_charge"]}</p>";
+  echo "<p>VAT: {$_POST["vat"]}</p>";
+  echo "<p>Total: {$_POST["total"]}</p>";
+  echo "<hr />\n";
+  echo "<p>Name: {$_POST["cc_name"]}</p>";
+  echo "<p>Delivery address: {$_POST["delivery_address"]}</p>";
+  echo "<hr />\n";
+  echo "<p>Credit card type: {$_POST["cc_type"]}</p>";
+  echo "<p>Credit card number: ",substr($_POST["cc_number"], 0, 2),"XXXXXXXXXXXX",substr($_POST["cc_number"], 14, 2),"</p>";
 }
 else {
   echo "<p>Please press the BACK button on your browser, or <a href=\"shopfront.php\">click here</a> to try again</p>";
@@ -156,4 +136,5 @@ else {
 </p>
 
 </body>
+
 </html>
