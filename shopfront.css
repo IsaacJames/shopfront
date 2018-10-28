@@ -1,95 +1,97 @@
- * {
-  font-family: Arial;
-  font-size: 16px;
+* {
+ font-family: Arial;
+}
+
+form * {
+ font-size: 16px;
 }
 
 stock_list {
-  padding: 0;
-  spacing: 0.1rem;
-  border-collapse: collapse;
-  display: table;
+ padding: 0;
+ spacing: 0.1rem;
+ border-collapse: collapse;
+ display: table;
 }
 
 stock_item {
-  border-spacing: 0.4rem;
-  padding: 0.5rem;
-  display: table-row;
+ border-spacing: 0.4rem;
+ padding: 0.5rem;
+ display: table-row;
 }
 
 item_photo {
-  text-align: center;
-  vertical-align: middle;
-  border-spacing: 0.4rem;
-  padding: 0.5rem;
-  display: table-cell;
+ text-align: center;
+ vertical-align: middle;
+ border-spacing: 0.4rem;
+ padding: 0.5rem;
+ display: table-cell;
 }
 
 item_name {
-  vertical-align: middle;
-  border-spacing: 0.4rem;
-  padding: 0.5rem;
-  display: table-cell;
+ vertical-align: middle;
+ border-spacing: 0.4rem;
+ padding: 0.5rem;
+ display: table-cell;
 }
 
 item_name * {
-  border: 0;
-  text-align: left;
+ border: 0;
+ text-align: left;
 }
 
 item_info {
-  vertical-align: middle;
-  border-spacing: 0.4rem;
-  padding: 0.5rem;
-  display: table-cell;
+ vertical-align: middle;
+ border-spacing: 0.4rem;
+ padding: 0.5rem;
+ display: table-cell;
 }
 
 item_quantity {
-  text-align: center;
-  vertical-align: middle;
-  border-spacing: 0.4rem;
-  padding: 0.5rem;
-  display: table-cell;
+ text-align: center;
+ vertical-align: middle;
+ border-spacing: 0.4rem;
+ padding: 0.5rem;
+ display: table-cell;
 }
 
 item_price {
-  text-align: right;
-  vertical-align: middle;
-  border-spacing: 0.4rem;
-  padding: 0.5rem;
-  display: table-cell;
+ vertical-align: middle;
+ border-spacing: 0.4rem;
+ padding: 0.5rem;
+ display: table-cell;
 }
 
 item_price * {
-  border: 0;
-  text-align: right;
+ border: 0;
+ text-align: right;
 }
 
 line_cost {
-  border-spacing: 0.4rem;
-  text-align: right;
-  vertical-align: middle;
-  padding: 0.5rem;
-  display: table-cell;
+ text-align: center;
+ border-spacing: 0.4rem;
+ vertical-align: middle;
+ padding: 0.5rem;
+ display: table-cell;
 }
 
 line_cost * {
-  border: 0;
-  text-align: right;
+ border: 0;
+ text-align: right;
 }
 
 input[id] {
-  border: 0;
+ border: 0;
 }
 
 .heading {
-  background-color: blue;
-  color: white;
+ background-color: blue;
+ color: white;
 }
 
 .yes {
-  background-color: lightgreen;
+ background-color: lightgreen;
 }
 
 .no {
-  background-color: lightcoral;
+ background-color: lightcoral;
 }
