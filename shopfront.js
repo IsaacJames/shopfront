@@ -97,7 +97,8 @@ function updateLineCost(e, item_id) {
             "<p>Delivery street address: " + delivery_address + "</p>\n" +
             "<p>Delivery postcode: " + delivery_postcode + "</p>\n" +
             "<p>Delivery country: " + delivery_country + "</p>\n" +
-            "<p>Email: " + email + "</p>\n";
+            "<p>Email: " + email + "</p>\n" +
+            "<hr />\n";
     let confirm = document.getElementById("confirm");
     confirm.innerHTML = c;
     confirm.style.display = "block";
