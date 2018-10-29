@@ -91,12 +91,18 @@ function isValidOrder() {
 }
 
 if (isValidOrder()) {
-  echo "<p>Date of order: ", date('l jS \of F Y h:i:s A'), "</p>\n";
-  echo "<p>Transaction id: ", hash("md5", date('l jS \of F Y h:i:s A')), "</p\n>";
+  $date = date('l jS \of F Y h:i:s A');
+  $id = hash("md5", $date);
+
+  echo "<p>Date of order: " . $date . "</p>\n";
+  echo "<p>Transaction id: " . $id . "</p\n>";
   echo "<hr />\n";
 
   define("ORDERS_FILE_NAME", "orders.txt"); // Local file - insecure!
-  $f = fopen(ORDERS_FILE_NAME, "w");
+  $f = fopen(ORDERS_FILE_NAME, "a");
+
+  fwrite($f, "$date\n");
+  fwrite($f, "{$_POST["sub_total"]},{$_POST["delivery_charge"]},{$_POST["vat"]},{$_POST["total"]}\n");
 
   // Print stock list headers
   echo "<stock_list>\n";
@@ -119,6 +125,23 @@ if (isValidOrder()) {
       fwrite($f, "{$item["name"]},{$item["price"]},{$item["quantity"]},{$item["cost"]}\n");
     }
   }
+  fwrite($f, "\n");
+
+  echo "<div class=\"row\">";
+  echo  "<div class=\"column\">";
+  echo    "<h2>Delivery Address</h2>"
+      <p>Some text..</p>
+    </div>
+    <div class="column" style="background-color:#bbb;">
+      <h2>Column 2</h2>
+      <p>Some text..</p>
+    </div>
+    <div class="column" style="background-color:#ccc;">
+      <h2>Column 3</h2>
+      <p>Some text..</p>
+    </div>
+  </div>
+
   echo "<hr />\n";
   echo "<p>Sub Total: {$_POST["sub_total"]}</p>";
   echo "<p>Delivery charge: {$_POST["delivery_charge"]}</p>";
@@ -131,7 +154,7 @@ if (isValidOrder()) {
   echo "<p>Credit card type: {$_POST["cc_type"]}</p>";
   echo "<p>Credit card number: ",substr($_POST["cc_number"], 0, 2),"XXXXXXXXXXXX",substr($_POST["cc_number"], 14, 2),"</p>";
 
-  fwrite($f, "{$_POST["sub_total"]},{$_POST["delivery_charge"]},{$_POST["vat"]},{$_POST["total"]}");
+  fclose($f);
 }
 else {
   echo "<p>Please press the BACK button on your browser, or <a href=\"shopfront.php\">click here</a> to try again</p>";
