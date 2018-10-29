@@ -9,7 +9,7 @@
 function getStockItemValue(item_id, element) {
   let i = document.getElementById(item_id);
   let e = i.getElementsByTagName(element)[0];  // assume only 1!
-  let v = e.firstChild.value;
+  let v = e.innerHTML;
   return v;
 }
 
@@ -21,7 +21,7 @@ function getStockItemValue(item_id, element) {
 function setStockItemValue(item_id, element, value) {
   let i = document.getElementById(item_id);
   let e = i.getElementsByTagName(element)[0];  // assume only 1!
-  e.firstChild.value = value;
+  e.innerHTML = value;
 }
 
 /*
@@ -48,7 +48,7 @@ function updateLineCost(e, item_id) {
     let t = 0;
     let lc = document.getElementsByTagName("line_cost");
     for (i = 1; i < lc.length; i++) {
-      t += Number(lc[i].firstChild.value);
+      t += Number(lc[i].innerHTML);
     }
     t = t.toFixed(2); // 2 decimal places always.
     let s = document.getElementById("sub_total");
@@ -82,7 +82,7 @@ function updateLineCost(e, item_id) {
     tl.value = t;
   }
 
-  function confirm() {
+  function check() {
     let cc_number = document.getElementsByName("cc_number")[0].value;
     let cc_name = document.getElementsByName("cc_name")[0].value;
     let cc_code = document.getElementsByName("cc_code")[0].value;
@@ -97,7 +97,8 @@ function updateLineCost(e, item_id) {
             "<p>Delivery street address: " + delivery_address + "</p>\n" +
             "<p>Delivery postcode: " + delivery_postcode + "</p>\n" +
             "<p>Delivery country: " + delivery_country + "</p>\n" +
-            "<p>Email: " + email + "</p>\n";
+            "<p>Email: " + email + "</p>\n" +
+            "<hr />\n";
     let confirm = document.getElementById("confirm");
     confirm.innerHTML = c;
     confirm.style.display = "block";
@@ -106,15 +107,15 @@ function updateLineCost(e, item_id) {
     s.style.display = "none";
 
     c = '<p>Is this correct? \
-        &nbsp; <input class="yes" type="submit" value="Yes" onclick="displayForm()" /> \
-        &nbsp; <input class="no" type="button" value="No" onclick="displayForm()" /> \
+        &nbsp; <input class="yes" type="submit" value="Yes" onclick="no()" /> \
+        &nbsp; <input class="no" type="button" value="No" onclick="no()" /> \
         </p>';
    let info = document.getElementById("info");
    info.innerHTML = c;
    info.style.display = "block";
   }
 
-  function displayForm() {
+  function no() {
     let confirm = document.getElementById("confirm");
     confirm.style.display = "none";
     let info = document.getElementById("info");

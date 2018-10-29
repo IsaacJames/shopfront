@@ -51,12 +51,18 @@ line_cost {
   color: white;
 }
 
+.yes {
+  background-color: lightgreen;
+}
+
+.no {
+  background-color: lightcoral;
+}
+
 /* Create three equal columns that floats next to each other */
 .column {
     float: left;
-    width: 33.33%;
     padding: 10px;
-    height: 300px; /* Should be removed. Only for demonstration */
 }
 
 /* Clear floats after the columns */
@@ -64,4 +70,8 @@ line_cost {
     content: "";
     display: table;
     clear: both;
+}
+
+* {
+    box-sizing: border-box;
 }
