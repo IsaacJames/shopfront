@@ -90,17 +90,13 @@ foreach(array_keys($stock_list) as $id) {
 
 <br />
 
-<p>Sub-total:
-  <input id="sub_total" type="number" name="sub_total" value=0 readonly/></p>
+<p>Sub-total: <span id="sub_total"></span></p>
 
-<p>Delivery charge:
-  <input id="delivery_charge" type="number" name="delivery_charge" value=0 readonly/></p>
+<p>Delivery charge: <span id="delivery_charge"></span></p>
 
-<p>VAT:
-  <input id="vat" type="number" name="vat" value=0 readonly/></p>
+<p>VAT: <span id="vat"></span></p>
 
-<p>Total:
-  <input id="total" type="number" name="total" value=0 readonly/></p>
+<p>Total: <span id="total"></span></p>
 
 <hr />
 
