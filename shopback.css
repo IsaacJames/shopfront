@@ -2,7 +2,7 @@
   font-family: Arial;
 }
 
-stock_list {
+order_list {
   padding: 0;
   spacing: 0.1rem;
   border-collapse: collapse;
@@ -51,15 +51,7 @@ line_cost {
   color: white;
 }
 
-.yes {
-  background-color: lightgreen;
-}
-
-.no {
-  background-color: lightcoral;
-}
-
-/* Create three equal columns that floats next to each other */
+/* Create three columns that float next to each other */
 .column {
     float: left;
     padding: 10px;

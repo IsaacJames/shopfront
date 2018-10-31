@@ -38,7 +38,6 @@ fclose($f);
 
 <?php
 
-// http://php.net/manual/en/function.htmlspecialchars.php
 function getFormInfo($k) {
   return isset($_POST[$k]) ? htmlspecialchars($_POST[$k]) : null;
 }
@@ -53,7 +52,7 @@ function isValidCardNumber($cc_type, $cc_number) {
   return false;
 }
 
-// Check that card code is 3 digits, positive and an integer
+// Check that card security code is 3 digits, positive and an integer
 function isValidCardCode($cc_code) {
   if (strlen($cc_code) == 3 && ctype_digit($cc_code)) {
     return true;
@@ -61,10 +60,10 @@ function isValidCardCode($cc_code) {
   return false;
 }
 
-// Check that email
+// Check that email contains a ampersand and at least one full stop in that order
 function isValidEmail($email) {
   // echo preg_match("/\@(?=.*\.)/", $email);
-  if (true) {
+  if (preg_match("/^[\w\.]+@(\w+\.)+\w+$/", $email)) {
     return true;
   }
   return false;
@@ -76,7 +75,7 @@ function isValidQuantities($stock_list) {
   foreach (array_keys($stock_list) as $id) {
     $q = $_POST[$id];
 
-    if (!ctype_digit($q)) {
+    if ($q != "" && !ctype_digit($q)) {
       return false;
     }
     elseif ($q > 0) {
@@ -86,8 +85,9 @@ function isValidQuantities($stock_list) {
   return !$empty_order;
 }
 
-$try_again = "\n<p>Please press the BACK button on your browser, or <a href=\"shopfront.php\">click here</a> to try again</p>";
+$try_again = "\n<p>Please press the BACK button on your browser, or <a href=\"shopfront.php\">click here</a> to try again</p>";  // Message for invalid order
 
+// Construct variables for testing
 if (!($cc_type = getFormInfo("cc_type")) ||
     !($cc_number = getFormInfo("cc_number")) ||
     !($cc_name = getFormInfo("cc_name")) ||
@@ -97,25 +97,25 @@ if (!($cc_type = getFormInfo("cc_type")) ||
     !($delivery_country = getFormInfo("delivery_country")) ||
     !($email = getFormInfo("email"))
   ) {
-  echo "<p>Some essential information is missing.</p>", $try_again;
+    echo "<p>Some essential information is missing.</p>", $try_again;  // One or more payment or delivery inputs is missing
 }
 else if (!isValidCardNumber($cc_type, $cc_number) || !isValidCardCode($cc_code)) {
-    echo "<p>Card could not be processed.</p>", $try_again;
+    echo "<p>Card could not be processed.</p>", $try_again;  // Credit card number is invalid for card type
   }
 else if (!isValidEmail($email)) {
-    echo "<p>Email is invalid</p>", $try_again;
+    echo "<p>Email is invalid.</p>", $try_again;  // Email is incorrectly formatted
   }
 else if (!isValidQuantities($stock_list)) {
-    echo "<p>Invalid order quantitiy.</p>", $try_again;
+    echo "<p>Invalid order quantitiy.</p>", $try_again;  // Order quantites are either all zero or at least one is not a positive integer
   }
 
 else {
-  echo "<p>Date of order: ", date('l jS \of F Y h:i:s A'), "</p>\n";
-  echo "<p>Transaction id: ", hash("md5", date('l jS \of F Y h:i:s A')), "</p\n>";
+  echo "<p>Date of order: ", date('l jS \of F Y h:i:s A'), "</p>\n";  // Print date
+  echo "<p>Transaction id: ",uniqid(), "</p\n>";  // Print unique transaction id based on current time in milliseconds
   echo "<hr />\n";
 
-  // Print stock list headers
-  echo "<stock_list>\n";
+  // Print order list headers
+  echo "<order_list>\n";
   echo "  <stock_item>\n";
   echo "    <item_name class=\"heading\">Name</item_name>\n";
   echo "    <item_price class=\"heading\"> &pound; (exc. VAT)</item_price>\n";
@@ -125,14 +125,14 @@ else {
 
   $sub_total = 0;
 
+  // Print only stock items which have been ordered (item quantities > 0)
   foreach(array_keys($stock_list) as $id) {
     $q = getFormInfo($id);
-
     if ($q > 0) {
       $item = $stock_list[$id];
-      $lc = $item["price"] * $q;
+      $lc = $item["price"] * $q;  // Calculate line cost
       $lc = number_format($lc, 2);
-      $sub_total += $lc;
+      $sub_total += $lc;  // Add line cost to sub-total
       echo "  <stock_item id=\"{$id}\">\n";
       echo "    <item_name>{$item["name"]}</item_name>\n";
       echo "    <item_price>{$item["price"]}</item_price>\n";
@@ -141,8 +141,9 @@ else {
       echo "  </stock_item>\n\n";
       }
   }
-  echo "</stock_list>\n";
+  echo "</order_list>\n";
 
+  // Re-calculate sub-total, delivery charge, VAT and total
   $sub_total = number_format($sub_total, 2);
   $delivery_charge = $sub_total * 0.1;
   $delivery_charge = number_format($delivery_charge, 2);
@@ -150,6 +151,7 @@ else {
   $vat = number_format($vat, 2);
   $total = $sub_total + $delivery_charge + $vat;
 
+  // Print payment and ddelivery information
   echo "<hr />\n";
   echo "<div class=\"row\">\n";
   echo "  <div class=\"column\">\n";
@@ -162,6 +164,7 @@ else {
   echo "  <div class=\"column\">\n";
   echo "    <h3>Payment Method</h2>\n";
   echo "    <p>{$cc_type}</p>\n";
+  // Only print first and last two digist of credit card number
   echo "    <p>" . substr($cc_number, 0, 2) . "XXXXXXXXXXXX" . substr($cc_number, 14, 2) . "</p>\n";
   echo "  </div>\n";
   echo "  <div class=\"column\">\n";
